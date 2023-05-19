@@ -58,7 +58,7 @@ const ProjectTable = ({ employees }) => {
 
   return (
     <div className="ProjectTable">
-      <h2>Projects</h2>
+      <h2>Projects Table</h2>
       <div className="ProjectSearch">
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6} md={3}>

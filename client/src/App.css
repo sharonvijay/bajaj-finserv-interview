@@ -36,10 +36,12 @@
     transform: rotate(360deg);
   }
 }
-*{
-  padding: 0 0 0 0;
-  margin:0 0 0 0;
+
+* {
+  padding: 0;
+  margin: 0;
 }
+
 .AppEmployee {
   margin-top: 0;
   padding: 0;
@@ -49,30 +51,35 @@
   align-items: center;
   font-size: calc(10px + 2vmin);
 }
+
 .EmployeeTable {
   justify-content: center;
   align-items: center;
   height: 100vh;
   width: 80%;
   margin: 0 auto;
-  
 }
 
-.ProjectTable{
+.ProjectTable {
+  padding-top: 25px;
+  margin-top: 10px;
   justify-content: center;
   align-items: center;
   height: 100vh;
   width: 80%;
-  margin: 10px auto;
-  padding-top:10px;
-
+  margin: 0 auto;
 }
+
 .ProjectTable h2 {
-  margin-top: 10px;
   padding-top: 25px;
+  margin-top: 10px;
   text-align: center;
 }
-.ProjectSearch{
+
+.ProjectSearch {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  margin-top: 10px;
   display: flex;
   flex-direction: row;
   gap: 16px;
