@@ -78,7 +78,7 @@ const EmployeeTable = ({ employees }) => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className='EmployeeTable'>
-        <div style={{ width: '80%' }}>
+        <div>
           <input
             type="text"
             placeholder="Search by Name"

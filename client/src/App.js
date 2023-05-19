@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import EmployeeTable from "../src/components/EmployeeTable";
-
+import "../src/App.css";
 const App = () => {
   const [employees, setEmployees] = useState([]);
 
@@ -17,7 +17,7 @@ const App = () => {
   }, []);
 
   return (
-    <div>
+    <div className="AppEmployee">
       <h1>Employee Table</h1>
       <EmployeeTable employees={employees} />
     </div>
