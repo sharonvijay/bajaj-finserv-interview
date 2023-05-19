@@ -77,7 +77,7 @@ const EmployeeTable = ({ employees }) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <div className='EmployeeTable'>
         <div style={{ width: '80%' }}>
           <input
             type="text"
