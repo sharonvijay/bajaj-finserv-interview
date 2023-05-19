@@ -57,3 +57,23 @@
   margin: 0 auto;
   
 }
+
+.ProjectTable{
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 80%;
+  margin: 10px auto;
+  padding-top:10px;
+
+}
+.ProjectTable h2 {
+  margin-top: 10px;
+  padding-top: 25px;
+  text-align: center;
+}
+.ProjectSearch{
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { DataGrid, GridToolbarContainer, GridToolbarColumnsButton,} from '@mui/x-data-grid';
+import { DataGrid, GridToolbarContainer, GridToolbarColumnsButton } from '@mui/x-data-grid';
+import { Grid, TextField, FormControl, InputLabel, Select, MenuItem, Switch, FormControlLabel } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Switch, FormControlLabel } from '@mui/material';
+import { CssBaseline } from '@mui/material';
+import ProjectTable from './ProjectTable';
 
 const lightTheme = createTheme({
   palette: {
@@ -44,7 +46,8 @@ const EmployeeTable = ({ employees }) => {
 
   const applyFilters = (name, designation, skills) => {
     const filteredData = employees.filter((employee) =>
-      employee.name && employee.name.toLowerCase().includes(name) &&
+      employee.name &&
+      employee.name.toLowerCase().includes(name) &&
       (designation === '' || employee.designation === designation) &&
       (skills === '' || (employee.skills && employee.skills.some((skill) => skill.toLowerCase().includes(skills))))
     );
@@ -66,7 +69,7 @@ const EmployeeTable = ({ employees }) => {
     return (
       <GridToolbarContainer>
         <GridToolbarColumnsButton />
-\        <FormControlLabel
+        <FormControlLabel
           control={<Switch checked={isDarkTheme} onChange={handleThemeChange} />}
           label="Dark Theme"
         />
@@ -78,26 +81,41 @@ const EmployeeTable = ({ employees }) => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className='EmployeeTable'>
-        <div>
-          <input
-            type="text"
-            placeholder="Search by Name"
-            onChange={handleFilterByName}
-          />
-
-          <select value={filterDesignation} onChange={handleFilterByDesignation}>
-            <option value="">All Designations</option>
-            <option value="Senior Developer">Senior Developer</option>
-            <option value="QA Engineer">QA Engineer</option>
-            <option value="Project Manager">Project Manager</option>
-          </select>
-
-          <input
-            type="text"
-            placeholder="Search by Skills"
-            onChange={handleFilterBySkills}
-          />
-        </div>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6} md={4}>
+            <TextField
+              label="Search by Name"
+              variant="outlined"
+              value={filterName}
+              onChange={handleFilterByName}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <FormControl fullWidth variant="outlined">
+              <InputLabel>Select Designation</InputLabel>
+              <Select
+                value={filterDesignation}
+                onChange={handleFilterByDesignation}
+                label="Select Designation"
+              >
+                <MenuItem value="">All Designations</MenuItem>
+                <MenuItem value="Senior Developer">Senior Developer</MenuItem>
+                <MenuItem value="QA Engineer">QA Engineer</MenuItem>
+                <MenuItem value="Project Manager">Project Manager</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <TextField
+              label="Search by Skills"
+              variant="outlined"
+              value={filterSkills}
+              onChange={handleFilterBySkills}
+              fullWidth
+            />
+          </Grid>
+        </Grid>
 
         <DataGrid
           rows={filteredRows}
@@ -107,6 +125,7 @@ const EmployeeTable = ({ employees }) => {
           }}
         />
       </div>
+      <ProjectTable employees={employees} />
     </ThemeProvider>
   );
 };
