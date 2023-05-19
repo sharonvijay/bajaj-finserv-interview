@@ -1,19 +1,6 @@
 import React, { useState } from 'react';
-import {
-  DataGrid,
-  GridToolbarContainer,
-  GridToolbarColumnsButton,
-} from '@mui/x-data-grid';
-import {
-  Grid,
-  TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Switch,
-  FormControlLabel,
-} from '@mui/material';
+import { DataGrid, GridToolbarContainer, GridToolbarColumnsButton } from '@mui/x-data-grid';
+import {Grid, TextField, FormControl, InputLabel, Select, MenuItem, Switch, FormControlLabel } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import ProjectTable from './ProjectTable';
@@ -58,16 +45,11 @@ const EmployeeTable = ({ employees }) => {
   };
 
   const applyFilters = (name, designation, skills) => {
-    const filteredData = employees.filter(
-      (employee) =>
-        employee.name &&
-        employee.name.toLowerCase().includes(name) &&
-        (designation === '' || employee.designation === designation) &&
-        (skills === '' ||
-          (employee.skills &&
-            employee.skills.some((skill) =>
-              skill.toLowerCase().includes(skills)
-            )))
+    const filteredData = employees.filter((employee) =>
+      employee.name &&
+      employee.name.toLowerCase().includes(name) &&
+      (designation === '' || employee.designation === designation) &&
+      (skills === '' || (employee.skills && employee.skills.some((skill) => skill.toLowerCase().includes(skills))))
     );
     setFilteredRows(filteredData);
   };
@@ -88,9 +70,7 @@ const EmployeeTable = ({ employees }) => {
       <GridToolbarContainer>
         <GridToolbarColumnsButton />
         <FormControlLabel
-          control={
-            <Switch checked={isDarkTheme} onChange={handleThemeChange} />
-          }
+          control={<Switch checked={isDarkTheme} onChange={handleThemeChange} />}
           label="Dark Theme"
         />
       </GridToolbarContainer>
@@ -101,6 +81,7 @@ const EmployeeTable = ({ employees }) => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className="EmployeeTable">
+
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6} md={4}>
             <TextField

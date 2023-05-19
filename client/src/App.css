@@ -70,17 +70,17 @@
   margin: 0 auto;
 }
 
-.ProjectTable h2 {
+.ProjectTable h2{
   padding-top: 25px;
   margin-top: 10px;
   text-align: center;
 }
 
-.ProjectSearch {
+.ProjectSearch{
   padding-top: 25px;
   padding-bottom: 25px;
   margin-top: 10px;
   display: flex;
   flex-direction: row;
-  gap: 16px;
+  gap: 16px; 
 }
