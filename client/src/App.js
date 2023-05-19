@@ -6,7 +6,7 @@ const App = () => {
 
   useEffect(() => {
     // Fetch JSON data from the API or local file
-    fetch("http://localhost:5000/api/employees")
+    fetch("https://bajaj-server.onrender.com/api/employees")
       .then((response) => response.json())
       .then((data) => {
         setEmployees(data.employees);
