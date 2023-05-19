@@ -80,7 +80,8 @@ const EmployeeTable = ({ employees }) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div className='EmployeeTable'>
+      <div className="EmployeeTable">
+
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6} md={4}>
             <TextField
