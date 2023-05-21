@@ -60,7 +60,7 @@ const EmployeeTable = ({ employees }) => {
         employee.name &&
         employee.name.toLowerCase().includes(name) &&
         (designation === '' || employee.designation === designation) &&
-        (skills.length === 0 || skills.every((skill) => employee.skills.includes(skill)))
+        (skills.length === 0 || skills.some((skill) => employee.skills.includes(skill)))
     );
     setFilteredRows(filteredData);
   };  
