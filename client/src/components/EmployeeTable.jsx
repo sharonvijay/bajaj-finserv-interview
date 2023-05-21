@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
-import { DataGrid, GridToolbarContainer, GridToolbarColumnsButton } from '@mui/x-data-grid';
-import {Grid, TextField, FormControl, InputLabel, Select, MenuItem, Switch, FormControlLabel } from '@mui/material';
+import {
+  Grid,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Switch,
+  FormControlLabel,
+  Checkbox,
+} from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
+import { DataGrid} from '@mui/x-data-grid';
 import ProjectTable from './ProjectTable';
 
 const lightTheme = createTheme({
@@ -21,7 +31,7 @@ const EmployeeTable = ({ employees }) => {
   const [filteredRows, setFilteredRows] = useState(employees);
   const [filterName, setFilterName] = useState('');
   const [filterDesignation, setFilterDesignation] = useState('');
-  const [filterSkills, setFilterSkills] = useState('');
+  const [filterSkills, setFilterSkills] = useState([]);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   const theme = isDarkTheme ? darkTheme : lightTheme;
@@ -39,20 +49,21 @@ const EmployeeTable = ({ employees }) => {
   };
 
   const handleFilterBySkills = (event) => {
-    const skills = event.target.value.toLowerCase();
-    setFilterSkills(skills);
-    applyFilters(filterName, filterDesignation, skills);
+    const selectedSkills = event.target.value;
+    setFilterSkills(selectedSkills);
+    applyFilters(filterName, filterDesignation, selectedSkills);
   };
 
   const applyFilters = (name, designation, skills) => {
-    const filteredData = employees.filter((employee) =>
-      employee.name &&
-      employee.name.toLowerCase().includes(name) &&
-      (designation === '' || employee.designation === designation) &&
-      (skills === '' || (employee.skills && employee.skills.some((skill) => skill.toLowerCase().includes(skills))))
+    const filteredData = employees.filter(
+      (employee) =>
+        employee.name &&
+        employee.name.toLowerCase().includes(name) &&
+        (designation === '' || employee.designation === designation) &&
+        (skills.length === 0 || skills.every((skill) => employee.skills.includes(skill)))
     );
     setFilteredRows(filteredData);
-  };
+  };  
 
   const handleThemeChange = () => {
     setIsDarkTheme((prev) => !prev);
@@ -65,23 +76,21 @@ const EmployeeTable = ({ employees }) => {
     { field: 'skills', headerName: 'Skills', width: 250 },
   ];
 
-  const CustomToolbar = () => {
-    return (
-      <GridToolbarContainer>
-        <GridToolbarColumnsButton />
-        <FormControlLabel
-          control={<Switch checked={isDarkTheme} onChange={handleThemeChange} />}
-          label="Dark Theme"
-        />
-      </GridToolbarContainer>
-    );
-  };
+  const allSkills = [
+    'SQL',
+    'JavaScript',
+    'Python',
+    'HTML',
+    'CSS',
+    'Photoshop',
+    'Manual Testing',
+    'Java',
+  ];
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className="EmployeeTable">
-
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6} md={4}>
             <TextField
@@ -93,12 +102,12 @@ const EmployeeTable = ({ employees }) => {
             />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <FormControl fullWidth variant="outlined">
-              <InputLabel>Select Designation</InputLabel>
+            <FormControl variant="outlined" fullWidth>
+              <InputLabel>Filter by Designation</InputLabel>
               <Select
                 value={filterDesignation}
                 onChange={handleFilterByDesignation}
-                label="Select Designation"
+                label="Filter by Designation"
               >
                 <MenuItem value="">All Designations</MenuItem>
                 <MenuItem value="Senior Developer">Senior Developer</MenuItem>
@@ -108,26 +117,39 @@ const EmployeeTable = ({ employees }) => {
             </FormControl>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <TextField
-              label="Search by Skills"
-              variant="outlined"
-              value={filterSkills}
-              onChange={handleFilterBySkills}
-              fullWidth
+            <FormControl variant="outlined" fullWidth>
+              <InputLabel>Filter by Skills</InputLabel>
+              <Select
+                multiple
+                value={filterSkills}
+                onChange={handleFilterBySkills}
+                label="Filter by Skills"
+                renderValue={(selected) => selected.join(', ')}
+              >
+                {allSkills.map((skill) => (
+                  <MenuItem key={skill} value={skill}>
+                    <Checkbox checked={filterSkills.includes(skill)} />
+                    {skill}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <FormControlLabel
+              control={<Switch checked={isDarkTheme} onChange={handleThemeChange} />}
+              label="Dark Theme"
             />
           </Grid>
+          <Grid item xs={12}>
+            <div style={{ height: 500, width: '100%' }}>
+              <DataGrid rows={filteredRows} columns={columns} />
+            </div>
+          </Grid>
         </Grid>
-
-        <DataGrid
-          rows={filteredRows}
-          columns={columns}
-          components={{
-            Toolbar: CustomToolbar,
-          }}
-        />
       </div>
       <ProjectTable employees={employees} />
-    </ThemeProvider>
+      </ThemeProvider>
   );
 };
 
